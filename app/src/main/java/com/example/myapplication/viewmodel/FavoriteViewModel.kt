@@ -43,6 +43,8 @@ class FavoriteViewModel(private var companyRepo: CompanyRepo, private var localR
     fun clear(){
         disposableFavorite.dispose()
     }
+
+
 }
 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="favorite">Любимые</string>
+    <string name="stocks">Акции</string>
+    <string name="find_company_or_ticker">Найти компанию</string>
+    <string name="last_search">Последние</string>
+    <string name="gainers_stocks">Растущие Акции</string>
+</resources>

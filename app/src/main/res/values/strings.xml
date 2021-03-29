@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="favorite">Favorite</string>
+    <string name="stocks">Stocks</string>
+    <string name="find_company_or_ticker">Find company or ticker</string>
+    <string name="last_search">Last Search</string>
+    <string name="gainers_stocks">Gainers Stocks</string>
 </resources>

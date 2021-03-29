@@ -1,5 +1,6 @@
 package com.example.myapplication.ui
 
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,9 +14,8 @@ import com.example.myapplication.R
 import com.example.myapplication.common.CompanyInfoDst
 import com.example.myapplication.databinding.StockItemBinding
 
-//private var mListener: IListener,
-class CompanyAdapter(private var mListener: IListener) :
-        ListAdapter<CompanyInfoDst, CompanyAdapter.CompanyVH>(DiffCallback){
+class CompanyFullInfoAdapter(private var mListener: IListener) :
+        ListAdapter<CompanyInfoDst, CompanyFullInfoAdapter.CompanyVH>(DiffCallback){
 
     private lateinit var binding: StockItemBinding
 
@@ -38,19 +38,22 @@ class CompanyAdapter(private var mListener: IListener) :
         RecyclerView.ViewHolder(itemBinding.root){
 
         fun bind(companyInfo: CompanyInfoDst, position: Int){
-            val backgroundColor = if(position%2==1) ContextCompat.getColor(itemView.context, R.color.white)
-            else ContextCompat.getColor(itemView.context, R.color.light_blue)
-            val colorOfChange = if (companyInfo.priceChange<0.0) ContextCompat.getColor(itemView.context, R.color.red)
-            else ContextCompat.getColor(itemView.context, R.color.green)
 
-            itemBinding.root.setCardBackgroundColor(backgroundColor)
+            when(companyInfo.priceChange<0.0){
+                true->itemBinding.companyPriceChange.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+                false->itemBinding.companyPriceChange.setTextColor(ContextCompat.getColor(itemView.context, R.color.green))
+            }
+            when(position%2==1){
+                true->itemBinding.root.setCardBackgroundColor(Color.WHITE)
+                false->itemBinding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.light_blue))
+            }
+
             Glide.with(itemView.context).load(Uri.parse(companyInfo.logo)).error(R.drawable.ic_img_7400)
                     .into(itemBinding.companyPic)
             itemBinding.companyName.text=companyInfo.name
             itemBinding.companyPrice.text="$"+companyInfo.curPrice.toString()
             itemBinding.companyTicker.text=companyInfo.ticker
             itemBinding.companyPriceChange.text=createChangeString(companyInfo.priceChange,companyInfo.priceChangePercent)
-            itemBinding.companyPriceChange.setTextColor(colorOfChange)
             itemBinding.favButton.isChecked=companyInfo.isFavorite
             itemBinding.favButton.setOnCheckedChangeListener{ _,
             isChecked->mListener.pressButtonFavorite(isChecked, companyInfo.ticker)}

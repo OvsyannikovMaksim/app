@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [FavoriteCompany::class], version=1)
+@Database(entities = [FavoriteCompany::class, SearchHistory::class], version=1)
 abstract class DataBase: RoomDatabase() {
 
-    abstract fun favoriteCompanyDao(): FavoriteCompanyDao
+    abstract fun localDao(): LocalDao
 
     companion object {
         private var INSTANCE: DataBase? = null
